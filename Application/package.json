@@ -1,0 +1,26 @@
+{
+    "name": "misterija-mk",
+    "version": "0.0.1",
+    "description": "The new birthplace of mysteries and riddles.",
+    "main": "index.js",
+    "scripts": {
+        "dev": "webpack --mode development ./server/react/src/index.js --output ./server/react/static/react/js/main.js",
+        "build": "webpack --mode production ./server/react/src/index.js --output ./server/react/static/react/js/main.js"
+    },
+    "author": "Borjan Gjorovski <borjan.gjorovski@outlook.com>",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "^7.2.2",
+        "@babel/preset-env": "^7.3.1",
+        "@babel/preset-react": "^7.0.0",
+        "babel-loader": "^8.0.5",
+        "babel-plugin-transform-class-properties": "^6.24.1",
+        "webpack": "^4.29.1",
+        "webpack-cli": "^3.2.3"
+    },
+    "dependencies": {
+        "prop-types": "^15.6.2",
+        "react": "^16.7.0",
+        "react-dom": "^16.7.0"
+    }
+}
