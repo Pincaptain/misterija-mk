@@ -4,7 +4,7 @@
     "description": "The new birthplace of mysteries and riddles.",
     "main": "index.js",
     "scripts": {
-        "dev": "webpack --mode development ./server/react/src/index.js --output ./server/react/static/react/js/main.js",
+        "dev": "webpack --mode development --watch ./server/react/src/index.js --output ./server/react/static/react/js/main.js",
         "build": "webpack --mode production ./server/react/src/index.js --output ./server/react/static/react/js/main.js"
     },
     "author": "Borjan Gjorovski <borjan.gjorovski@outlook.com>",
