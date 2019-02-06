@@ -1,0 +1,9 @@
+# IDEs
+.project
+.pydevproject
+.idea
+.vscode
+.settings
+
+# Python compiled byte code
+*.pyc
