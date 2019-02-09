@@ -28,6 +28,13 @@ class UpdateUserView(generics.UpdateAPIView):
     def get_object(self):
         return self.request.user
 
+class DestroyUserView(generics.DestroyAPIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get_object(self):
+        return self.request.user
+
 class CurrentUserView(generics.RetrieveAPIView):
 
     permission_classes = (IsAuthenticated,)
