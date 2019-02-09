@@ -45,46 +45,38 @@ class CurrentUserSerializer(serializers.ModelSerializer):
 
 class PasswordUpdateUserSerializer(serializers.ModelSerializer):
 
-    password = serializers.CharField(write_only=True)
-    old_password = serializers.CharField(write_only=True)
+    new_password = serializers.CharField(write_only=True)
+    current_password = serializers.CharField(write_only=True)
 
     def validate(self, data):
-        super().validate(data)
+        errors = {}
+        new_password = data.get('new_password')
+        current_password = data.get('current_password')
 
-        password = data.get('password')
-        old_password = data.get('old_password')
+        if new_password is None:
+            errors['new_password'] = 'This field is required'
 
-        if password is None or password is '':
-            raise serializers.ValidationError('New password is required')
-
-        if old_password is None or old_password == '':
-            raise serializers.ValidationError('Current password is required')
+        if current_password is None:
+            errors['current_password'] = 'This field is required'
 
         user = self.instance
 
-        if not user.check_password(old_password):
-            raise serializers.ValidationError('Your current password is invalid')
+        if not user.check_password(current_password) and 'current_password' not in errors.keys():
+            errors['current_password'] = 'Current password is invalid'
+
+        if len(errors.keys()) != 0:
+            raise serializers.ValidationError(errors)
 
         return data
 
     def update(self, instance, validated_data):
         user = super().update(instance, validated_data)
-        user.set_password(validated_data.get('password'))
+        user.set_password(validated_data.get('new_password'))
         user.save()
 
         return user
 
-    def validate_old_password(self, value):
-        user = self.instance
-
-        if value is None or value == '':
-            raise serializers.ValidationError('Current password is required')
-
-        if not user.check_password(value):
-            raise serializers.ValidationError('Your current password is invalid')
-
-        return value
-
     class Meta:
         model = User
-        fields = ('password', 'old_password')
+        fields = ('pk', 'username', 'new_password', 'current_password')
+        read_only_fields = ('pk', 'username')

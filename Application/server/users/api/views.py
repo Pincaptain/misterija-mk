@@ -28,6 +28,15 @@ class UpdateUserView(generics.UpdateAPIView):
     def get_object(self):
         return self.request.user
 
+class PasswordUpdateUserView(generics.UpdateAPIView):
+
+    queryset = User.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = serializers.PasswordUpdateUserSerializer
+
+    def get_object(self):
+        return self.request.user
+
 class DestroyUserView(generics.DestroyAPIView):
 
     permission_classes = (IsAuthenticated,)
@@ -39,15 +48,6 @@ class CurrentUserView(generics.RetrieveAPIView):
 
     permission_classes = (IsAuthenticated,)
     serializer_class = serializers.CurrentUserSerializer
-
-    def get_object(self):
-        return self.request.user
-
-class PasswordUpdateUserView(generics.UpdateAPIView):
-
-    queryset = User.objects.all()
-    permission_classes = (IsAuthenticated,)
-    serializer_class = serializers.PasswordUpdateUserSerializer
 
     def get_object(self):
         return self.request.user
