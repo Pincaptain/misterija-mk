@@ -42,3 +42,12 @@ class CurrentUserView(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+
+class PasswordUpdateUserView(generics.UpdateAPIView):
+
+    queryset = User.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = serializers.PasswordUpdateUserSerializer
+
+    def get_object(self):
+        return self.request.user
