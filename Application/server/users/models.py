@@ -8,5 +8,3 @@ from rest_framework.authtoken.models import Token
 def create_token(sender, **kwargs):
     if kwargs['created']:
         token = Token.objects.create(user=kwargs['instance'])
-    
-
