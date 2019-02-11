@@ -5,5 +5,11 @@
 .vscode
 .settings
 
+# Node modules
+node_modules/
+
+# User avatars
+media/users/avatars/
+
 # Python compiled byte code
 *.pyc
