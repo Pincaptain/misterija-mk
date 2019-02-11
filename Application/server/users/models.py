@@ -2,11 +2,22 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db import models
+from django.conf import settings
 
 from rest_framework.authtoken.models import Token
 
 import os
 import uuid
+import random
+
+def get_default_avatar_path():
+    path = settings.MEDIA_ROOT
+    count = len(os.listdir(os.path.join(path, 'users', 'avatars', 'defaults')))
+    index = random.randint(0, count-1)
+    extension = 'png'
+    filename = '{0}.{1}'.format(str(index), extension)
+
+    return os.path.join(path, 'users', 'avatars', 'defaults', filename)
 
 def get_avatar_path(instance, filename):
     extension = filename.split('.')[-1]
@@ -15,7 +26,6 @@ def get_avatar_path(instance, filename):
     return os.path.join('users/avatars', filename)
 
 class Profile(models.Model):
-
     bio = models.TextField(blank=True)
     location = models.CharField(max_length=60, blank=True)
     avatar = models.ImageField(upload_to=get_avatar_path, blank=True)
