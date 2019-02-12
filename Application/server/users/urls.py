@@ -5,6 +5,9 @@ from rest_framework.authtoken.views import obtain_auth_token
 from .api import views
 
 urlpatterns = [
+    path('profiles/', views.ListProfileView.as_view()),
+    path('profiles/<pk>', views.DetailProfileView.as_view()),
+    path('profiles/current/', views.CurrentProfileView.as_view()),
     path('login/', obtain_auth_token),
     path('register/', views.CreateUserView.as_view()),
     path('update/password/', views.PasswordUpdateUserView.as_view()),

@@ -26,7 +26,7 @@ def get_default_avatar_path():
 
     copyfile(src, dst)
 
-    return os.path.join(media_path, 'users', 'avatars', filename)
+    return os.path.join('users', 'avatars', filename)
 
 def get_avatar_path(instance, filename):
     extension = filename.split('.')[-1]
@@ -38,7 +38,7 @@ class Profile(models.Model):
     bio = models.TextField(blank=True)
     location = models.CharField(max_length=60, blank=True)
     avatar = models.ImageField(upload_to=get_avatar_path, default=get_default_avatar_path, blank=True, max_length=255)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profiles')
 
     def __str__(self):
         return self.user.username
@@ -64,7 +64,9 @@ def delete_current_avatar(sender, **kwargs):
 
     if instance.pk:
         profile = Profile.objects.get(pk=instance.pk)
-        profile.avatar.delete(save=False)
+
+        if instance.avatar != profile.avatar:
+            profile.avatar.delete(save=False)
 
 @receiver(post_delete, sender=Profile)
 def delete_avatar(sender, **kwargs):

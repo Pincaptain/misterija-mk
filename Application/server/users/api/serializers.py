@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 
 from rest_framework import serializers
 
+from ..models import Profile
+
 class ListUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -80,3 +82,24 @@ class PasswordUpdateUserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('pk', 'username', 'new_password', 'current_password')
         read_only_fields = ('pk', 'username')
+
+class ListProfileSerializer(serializers.ModelSerializer):
+    user = DetailUserSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = ('bio', 'location', 'avatar', 'user')
+
+class DetailProfileSerializer(serializers.ModelSerializer):
+    user = DetailUserSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = ('pk', 'bio', 'location', 'avatar', 'user')
+
+class CurrentProfileSerializer(serializers.ModelSerializer):
+    user = CurrentUserSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = ('pk', 'bio', 'location', 'avatar', 'user')
