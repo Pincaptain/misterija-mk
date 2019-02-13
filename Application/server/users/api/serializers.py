@@ -15,7 +15,6 @@ class DetailUserSerializer(serializers.ModelSerializer):
         fields = ('pk', 'username', 'first_name', 'last_name')
 
 class CreateUserSerializer(serializers.ModelSerializer):
-
     password = serializers.CharField(write_only=True)
 
     def create(self, validated_data):
@@ -30,15 +29,12 @@ class CreateUserSerializer(serializers.ModelSerializer):
         fields = ('username', 'email', 'password')
 
 class UpdateUserSerializer(serializers.ModelSerializer):
-
-    password = serializers.CharField(write_only=True)
-
     def update(self, instance, validated_data):
         return super().update(instance, validated_data)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password', 'first_name', 'last_name')
+        fields = ('username', 'email', 'first_name', 'last_name')
 
 class CurrentUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -46,7 +42,6 @@ class CurrentUserSerializer(serializers.ModelSerializer):
         fields = ('pk', 'username', 'email', 'first_name', 'last_name')
 
 class PasswordUpdateUserSerializer(serializers.ModelSerializer):
-
     new_password = serializers.CharField(write_only=True)
     current_password = serializers.CharField(write_only=True)
 
@@ -103,3 +98,11 @@ class CurrentProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ('pk', 'bio', 'location', 'avatar', 'user')
+
+class UpdateProfileSerializer(serializers.ModelSerializer):
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)
+
+    class Meta:
+        model = Profile
+        fields = ('bio', 'location', 'avatar')
