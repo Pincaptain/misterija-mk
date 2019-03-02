@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save, pre_save, post_delete
 from django.dispatch import receiver
 from django.db import models
-from django.core.files.storage import default_storage
 from django.conf import settings
 
 from rest_framework.authtoken.models import Token
