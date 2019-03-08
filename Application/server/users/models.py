@@ -37,7 +37,7 @@ class Profile(models.Model):
     bio = models.TextField(blank=True)
     location = models.CharField(max_length=60, blank=True)
     avatar = models.ImageField(upload_to=get_avatar_path, default=get_default_avatar_path, blank=True, max_length=255)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profiles')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profiles', related_query_name='profile')
 
     def __str__(self):
         return self.user.username
