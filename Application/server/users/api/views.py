@@ -63,7 +63,6 @@ class CurrentProfileView(generics.RetrieveAPIView):
     serializer_class = serializers.CurrentProfileSerializer
 
     def get_object(self):
-        print(self.request.user)
         return self.request.user.profiles.first()
 
 class UpdateProfileView(generics.UpdateAPIView):
