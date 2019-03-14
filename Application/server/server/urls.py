@@ -20,6 +20,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('silk/', include('silk.urls')),
 
     path('api/users/', include('users.urls')),
     path('api/posts/', include('posts.urls')),

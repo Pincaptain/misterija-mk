@@ -25,7 +25,9 @@ SECRET_KEY = '&kl-v$rzkvb25k2xyv2d^46(8w&k+^$#&+9nu%)0vbm45$xgec'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '192.168.1.124'
+]
 
 
 # Application definition
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
 	
 	'rest_framework',
     'rest_framework.authtoken',
+    'silk',
     
     'users',
     'posts',
@@ -55,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'silk.middleware.SilkyMiddleware',
 ]
 
 ROOT_URLCONF = 'server.urls'
