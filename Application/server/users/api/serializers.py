@@ -83,7 +83,7 @@ class ListProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('bio', 'location', 'avatar', 'user')
+        fields = ('pk', 'bio', 'location', 'avatar', 'user')
 
 class DetailProfileSerializer(serializers.ModelSerializer):
     user = DetailUserSerializer(many=False, read_only=True)
